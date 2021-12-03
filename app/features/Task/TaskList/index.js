@@ -3,17 +3,17 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 
 // import { useSelector, useDispatch } from 'react-redux';
-import styles from './{{ dashCase  name }}.styles';
+import styles from './task-list.styles';
 // import * as Actions from '../task.actions';
 
-export default function {{ properCase  name }}() {
+export default function TaskList() {
   // const dispatch = useDispatch();
-  // const { get{{ properCase name }} } = Actions;
-  // const { data } = useSelector(state => state.{{ camelCase name }}Reducer);
+  // const { getTaskList } = Actions;
+  // const { data } = useSelector(state => state.taskListReducer);
 
   return (
     <View style={styles.container}>
-      <Text>{{ properCase  name }} Screen</Text>
+      <Text>TaskList Screen</Text>
     </View>
   );
 }
