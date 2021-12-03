@@ -5,8 +5,9 @@ import { useSelector } from 'react-redux';
 
 import { navigationRef } from './NavigationService';
 
-import Login from 'app/features/login/containers';
-import Home from 'app/features/home/containers';
+import Login from 'app/features/Login/containers';
+import Home from 'app/features/Home/containers';
+import Task from 'app/features/Task';
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,7 @@ function App() {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
         {isLoggedIn ? (
-          <Stack.Screen name="Home" component={Home} options={homeOptions} />
+          <Stack.Screen name="Task" component={Task} />
         ) : (
           <Stack.Screen
             name="Login"
@@ -40,6 +41,7 @@ function App() {
             }}
           />
         )}
+        {/* <Stack.Screen name="Home" component={Home} options={homeOptions} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
