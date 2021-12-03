@@ -64,6 +64,13 @@ module.exports = {
         templateFile: './feature/types.js.hbs',
         abortOnFail: true,
       },
+      {
+        type: 'add',
+        path:
+          '../../app/features/{{properCase name}}/{{ dashCase name }}.sagas.js',
+        templateFile: './feature/sagas.js.hbs',
+        abortOnFail: true,
+      },
     ];
 
     actions.push({
