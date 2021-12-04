@@ -3,7 +3,7 @@ const API = {
     WEBSERVICES: {
       TYPE: 'HTTP',
       OPTIONS: {
-        baseURL: 'https://jsonplaceholder.typicode.com',
+        baseURL: 'https://entropiya-api.herokuapp.com/api',
         headers: {
           // 'Cache-Control': 'no-cache',
         },

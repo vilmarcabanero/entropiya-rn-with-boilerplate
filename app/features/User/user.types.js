@@ -1,0 +1,3 @@
+export const GET_USER = 'GET_USER';
+export const SET_USER = 'SET_USER';
+export const IS_USER_DETAILS_STATE_CHANGED = 'IS_USER_DETAILS_STATE_CHANGED';

@@ -6,19 +6,17 @@ const WebServices = (options = API.SERVER.WEBSERVICES.OPTIONS) => {
 
   const mapping = {
     login: {
-      path: '/login/token',
+      path: '/auth/login',
       method: 'post',
-      cache: null,
     },
     logout: {
       path: '/login/logout',
       method: 'post',
       cache: null,
     },
-    getTasks: {
-      path: '/todos',
+    getUser: {
+      path: '/auth/user',
       method: 'getNoParam',
-      cache: null,
     },
   };
   const call = (type, params = {}, customPath = null) => {

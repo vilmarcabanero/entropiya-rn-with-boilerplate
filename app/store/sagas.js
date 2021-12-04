@@ -4,11 +4,11 @@
  *
  */
 import { all } from 'redux-saga/effects';
-import { loginSagas } from 'app/features/Login/sagas';
-import { taskSagas } from 'app/features/Task/task.sagas';
+import { loginSagas } from 'app/features/Login/login.sagas';
+import { userSagas } from 'app/features/User/user.sagas';
 
 // export default [loginSaga];
 
 export default function* rootSaga() {
-  yield all([...loginSagas, ...taskSagas]);
+  yield all([...loginSagas, ...userSagas]);
 }

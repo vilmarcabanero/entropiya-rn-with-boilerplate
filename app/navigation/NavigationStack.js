@@ -5,18 +5,17 @@ import { useSelector } from 'react-redux';
 
 import { navigationRef } from './NavigationService';
 
-import Login from 'app/features/Login/containers';
-import Home from 'app/features/Home/containers';
-import Task from 'app/features/Task';
+import Login from 'app/features/Login';
+import Home from 'app/features/Home';
 
 const Stack = createStackNavigator();
 
-const homeOptions = {
-  title: 'My home',
+const titleOptions = {
+  title: 'Entropiya',
   headerStyle: {
-    backgroundColor: '#f4511e',
+    backgroundColor: '#fff',
   },
-  headerTintColor: '#fff',
+  headerTintColor: '#1A73E8',
   headerTitleStyle: {
     fontWeight: 'bold',
   },
@@ -29,17 +28,9 @@ function App() {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
         {isLoggedIn ? (
-          <Stack.Screen name="Task" component={Task} />
+          <Stack.Screen name="Home" component={Home} options={titleOptions} />
         ) : (
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              // When logging out, a pop animation feels intuitive
-              // You can remove this if you want the default 'push' animation
-              animationTypeForReplace: isLoggedIn ? 'push' : 'pop',
-            }}
-          />
+          <Stack.Screen name="Login" component={Login} options={titleOptions} />
         )}
         {/* <Stack.Screen name="Home" component={Home} options={homeOptions} /> */}
       </Stack.Navigator>
