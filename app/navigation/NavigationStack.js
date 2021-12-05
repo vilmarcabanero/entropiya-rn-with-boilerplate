@@ -10,19 +10,16 @@ import Home from 'app/features/Home';
 
 const Stack = createStackNavigator();
 
-const titleOptions = {
-  title: 'Entropiya',
-  headerStyle: {
-    backgroundColor: '#fff',
-  },
-  headerTintColor: '#1A73E8',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-};
-
 function App() {
   const isLoggedIn = useSelector(state => state.loginReducer.isLoggedIn);
+
+  const titleOptions = {
+    title: 'Entropiya',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+    headerTintColor: '#1A73E8',
+  };
 
   return (
     <NavigationContainer ref={navigationRef}>

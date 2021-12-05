@@ -1,24 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { Alert, View } from 'react-native';
+import {
+  Button,
+  Text,
+  TextInput,
+  useTheme,
+  IconButton,
+} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './login.styles';
 import * as Actions from './login.actions';
-import * as UserActions from '../User/user.actions';
-import * as AsyncStorage from 'app/utils/asyncStorage';
 
 export default function Login() {
+  const {
+    isLoading,
+    emailError,
+    passwordError,
+    passwordTextIsShown,
+  } = useSelector(state => state.loginReducer);
   const dispatch = useDispatch();
-  const { login } = Actions;
-  const { getUser } = UserActions;
-  const { isLoading } = useSelector(state => state.loginReducer);
-  const { userDetails, userDetailsState } = useSelector(
-    state => state.userReducer,
-  );
 
-  const authToken = AsyncStorage.getItem('authToken');
+  const { colors } = useTheme();
 
   const [loginPayload, setLoginPayload] = useState({
     email: '',
@@ -26,33 +31,60 @@ export default function Login() {
   });
 
   useEffect(() => {
-    dispatch(getUser());
-  }, [userDetailsState]);
+    dispatch(Actions.togglePasswordVisibility(true));
+    dispatch(Actions.loginErrorEmail(''));
+    dispatch(Actions.loginErrorPassword(''));
+  }, []);
+
+  function handleLogin() {
+    dispatch(Actions.login(loginPayload));
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title} color="primary">
-        Login
-        {!userDetails.firstName ? '' : userDetails.firstName}
+      <Text style={styles.title}>
+        <Icon name="account-lock" style={styles.loginIcon} size={30} /> Login
       </Text>
-      <TextInput
-        style={styles.email}
-        label="Email"
-        mode="outlined"
-        value={loginPayload.email}
-        onChangeText={text => setLoginPayload({ ...loginPayload, email: text })}
-      />
-      <TextInput
-        type="password"
-        style={styles.password}
-        label="Password"
-        mode="outlined"
-        keyboardType="visible-password"
-        value={loginPayload.password}
-        onChangeText={text =>
-          setLoginPayload({ ...loginPayload, password: text })
-        }
-      />
+      <View style={styles.inputGroup}>
+        <TextInput
+          style={styles.email}
+          label="Email"
+          error={emailError}
+          value={loginPayload.email}
+          onChangeText={text =>
+            setLoginPayload({ ...loginPayload, email: text })
+          }
+        />
+        <Text style={styles.error}>{emailError}</Text>
+      </View>
+      <View style={styles.inputGroup}>
+        <TextInput
+          style={styles.password}
+          label="Password"
+          error={passwordError}
+          value={loginPayload.password}
+          secureTextEntry={passwordTextIsShown}
+          onChangeText={text =>
+            setLoginPayload({ ...loginPayload, password: text })
+          }
+        />
+        <Text style={styles.error}>{passwordError}</Text>
+        <IconButton
+          icon={passwordTextIsShown ? 'eye-off' : 'eye'}
+          style={styles.eyeIcon}
+          size={20}
+          onPress={() =>
+            dispatch(Actions.togglePasswordVisibility(!passwordTextIsShown))
+          }
+        />
+      </View>
+      <Button
+        style={styles.forgotPassword}
+        color={colors.text}
+        uppercase={false}
+        onPress={() => Alert.alert()}>
+        Forgot password?
+      </Button>
       <Button
         style={styles.submit}
         icon="login"
@@ -60,8 +92,15 @@ export default function Login() {
         uppercase={false}
         dark={true}
         loading={isLoading}
-        onPress={() => dispatch(login(loginPayload))}>
+        onPress={handleLogin}>
         Login
+      </Button>
+      <Button
+        style={styles.notRegistered}
+        color={colors.text}
+        uppercase={false}
+        onPress={() => Alert.alert()}>
+        Not yet registered?
       </Button>
     </View>
   );

@@ -30,3 +30,24 @@ export function loginStatus(isLoggedIn) {
     isLoggedIn,
   };
 }
+
+export function loginErrorEmail(error) {
+  return {
+    type: Types.LOGIN_ERROR_EMAIL,
+    error,
+  };
+}
+
+export function loginErrorPassword(error) {
+  return {
+    type: Types.LOGIN_ERROR_PASSWORD,
+    error,
+  };
+}
+
+export function togglePasswordVisibility(toggle) {
+  return {
+    type: Types.TOGGLE_PASSWORD_VISIBILITY,
+    toggle,
+  };
+}
